@@ -26,6 +26,9 @@ $(call inherit-product, vendor/omni/config/common.mk)
 # Inherit Telephony packages
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+# Inherit language packages
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 ## Device identifier. This must come after all inclusions
 PRODUCT_NAME := omni_daisy
 PRODUCT_DEVICE := daisy
