@@ -17,31 +17,14 @@
 # Release name
 PRODUCT_RELEASE_NAME := daisy
 
-$(call inherit-product, build/target/product/embedded.mk)
+# Specify phone tech before including full_phone
+$(call inherit-product, vendor/omni/config/gsm.mk)
 
-# Inherit from our custom product configuration
+# Inherit some common Omni stuff.
 $(call inherit-product, vendor/omni/config/common.mk)
 
-# Inherit language packages
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
-
-# Define time zone data path
-ifneq ($(wildcard bionic/libc/zoneinfo),)
-    TZDATAPATH := bionic/libc/zoneinfo
-else ifneq ($(wildcard system/timezone),)
-    TZDATAPATH := system/timezone/output_data/iana
-endif
-
-# Time Zone data for Recovery
-ifdef TZDATAPATH
-PRODUCT_COPY_FILES += \
-    $(TZDATAPATH)/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
-endif
+# Inherit Telephony packages
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_NAME := omni_daisy
